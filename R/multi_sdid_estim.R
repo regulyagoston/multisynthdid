@@ -325,8 +325,8 @@ multi_synthdid_estim <- function(Y, N0, T0,
 #' @param eta.omega determines the level of ridge regularization, zeta.omega = eta.omega * noise.level, as in multi_synthdid_estim
 #' @param ... additional options for multi_synthdid_estim
 #' @return an object like that returned by multi_synthdid_estim
-#' @export multi_sc
-multi_sc = function(Y, N0, T0, eta.omega = 1e-6, ...) {
+#' @export multi_sc_estimate
+multi_sc_estimate = function(Y, N0, T0, eta.omega = 1e-6, ...) {
   estimate = multi_synthdid_estim(Y, N0, T0, eta.omega = eta.omega,
                                weights = list(lambda = rep(0, T0)), omega.intercept = FALSE, ...)
   attr(estimate, 'estimator') = "multi_sc_estimate"
@@ -340,8 +340,8 @@ multi_sc = function(Y, N0, T0, eta.omega = 1e-6, ...) {
 #' @param T0 the number of pre-treatment time steps. Columns 1-T0 of Y correspond to pre-treatment time steps.
 #' @param ... additional  options for multi_synthdid_estim
 #' @return an object like that returned by multi_synthdid_estim
-#' @export did_estimate
-did_estimate = function(Y, N0, T0, ...) {
+#' @export multi_did_estimate
+multi_did_estimate = function(Y, N0, T0, ...) {
   estimate = multi_synthdid_estim(Y, N0, T0, weights = list(lambda = rep(1 / T0, T0), omega = rep(1 / N0, N0)), ...)
   attr(estimate, 'estimator') = "multi_did_estimate"
   estimate
