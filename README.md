@@ -65,16 +65,20 @@ res <- multi_sdid( outcome_1 + outcome_2 ~ 1, 'treatment', 'unit_id', 'time_id',
 
 A simple example is to estimate the effect of German Reunification.
 
+```
+library(multisynthdid)
+```
+
 Get the imputed data for german reunification.
 
 ```
-df <- data("germanreunification")
+data("german_reunification")
 ```
 
 One can easily run the estimation via the main function:
 
 ```
-res <- multi_sdid( gdp + infrate + trade ~ 1, 'W', 'country', 'year', df )
+res <- multi_sdid( gdp + infrate + trade ~ 1, 'W', 'country', 'year', german_reunification )
 ```
 
 The summary command will summarise the main estimates
