@@ -9,4 +9,4 @@
 #'   \item{year}{Year}
 #'   ...
 #' }
-"german_reunification"
+NULL
