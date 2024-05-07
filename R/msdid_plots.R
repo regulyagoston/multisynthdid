@@ -17,12 +17,12 @@ plot_gaps <- function( estimate, outcome = NULL, placebo = F,
   stopifnot( class(estimate) == 'multi_synthdid_obj' )
 
   if ( is.null( outcome ) ){
-    outcome <- names( estimate$tau_all )
+    outcome <- colnames( estimate$tau_all )
   }
 
 
   synt_gap <- multi_synthdid_curves(estimate$tau, complete = T)
-  orig_names <- names(estimate$tau_all)
+  orig_names <- colnames(estimate$tau_all)
   gap_m <- t( synt_gap$tau_curve )
   colnames( gap_m ) <- orig_names
 
@@ -102,11 +102,11 @@ plot_outcomes <- function( estimate, outcome = NULL ){
   stopifnot( class(estimate) == 'multi_synthdid_obj' )
 
   if ( is.null( outcome ) ){
-    outcome <- names( estimate$tau_all )
+    outcome <- colnames( estimate$tau_all )
   }
 
   synt_gap <- multi_synthdid_curves(estimate$tau, complete = T)
-  orig_names <- names(estimate$tau_all)
+  orig_names <- colnames(estimate$tau_all)
   out_m <- t( synt_gap$tr_curve )
   colnames( out_m ) <- orig_names
   syn_m <- t( synt_gap$tau_curve + synt_gap$tr_curve )
