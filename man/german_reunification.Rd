@@ -5,7 +5,7 @@
 \alias{german_reunification}
 \title{German reunification on West Germany}
 \format{
-## `german_reunification`
+To be updated
 A data frame with:
 \describe{
   \item{country}{Country name}
@@ -15,9 +15,15 @@ A data frame with:
 }
 }
 \usage{
-german_reunification
+data(german_reunification)
 }
 \description{
 German reunification on West Germany
 }
-\keyword{datasets}
+\examples{
+\donttest{
+# Load German reunification long panel format
+data("german_reunification")
+}
+
+}
