@@ -290,7 +290,6 @@ multi_synthdid_estim <- function(Y, N0, T0,
   for ( j in 1 : J ){
     tau.curve[j,] = fp1[,T0 + (1:T1),j] - c(fp1[,1:T0,j] %*% weights$lambda)
   }
-  tau.curve
 
   class(estimate) = 'multi_synthdid_estimate'
   attr(estimate, 'estimator') = "multi_synthdid_estimate"
@@ -300,7 +299,12 @@ multi_synthdid_estim <- function(Y, N0, T0,
                                 omega.intercept = omega.intercept, lambda.intercept = lambda.intercept,
                                 update.omega = update.omega, update.lambda = update.lambda,
                                 min.decrease = min.decrease, max.iter=max.iter,
-                                noise.level = NULL )
+                                noise.level = NULL)
+
+  attr(estimate, 'specs') = list(eta.omega = eta.omega, eta.lambda = eta.lambda,
+                                 standardize = standardize, scale_vcov = scale_vcov,
+                                 sparsify_function = sparsify_function,
+                                 max.iter.pre.sparsify = max.iter.pre.sparsify )
 
   if ( out == 'all' ){
     return(list( tau = estimate, tau.curve = tau.curve ) )
@@ -384,7 +388,7 @@ multi_synthdid_placebo = function(estimate, treated.fraction = NULL) {
 #'        - synt_curve: synthetic outcome
 #'        - tr_curve: treated (averaged) unit outcome
 #'        - tau_curve: effect/gap curve
-#' @export synthdid_effect_curve
+#' @export multi_synthdid_curves
 multi_synthdid_curves = function(estimate, complete = F) {
   setup = attr(estimate, 'setup')
   weights = attr(estimate, 'weights')

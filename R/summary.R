@@ -1,21 +1,20 @@
-#' Summarize a synthdid object
+#' Summarize a multisynthdid object
 #' @param object The object to summarize
-#' @param weight.digits The number of digits to use when displaying weights (omega, lambda)
 #' @param weights Report weights or not
 #' @param weights_print `non-null` - only report non-null values, `all` - report all values.
-#' @method summary multi_sdid
-#' @export summary.multi_sdid
-summary.multi_sdid = function(object, weights = F, weight.digits=3, weights_print = 'non-null') {
-  
+#' @method summary.multisynthdid
+#' @export summary.multisynthdid
+summary.multisynthdid = function(object, weights = F, weight.digits=3, weights_print = 'non-null') {
+
   stopifnot( class(object) == 'multi_synthdid_obj' )
-  
+
   N0 = attr(object$tau, 'setup')$N0
   T0 = attr(object$tau, 'setup')$T0
   dims <- dim(attr(object$tau, 'setup')$Y)
   N  = dims[1]
   Tall = dims[2]
   J = dims[3]
-  
+
   unit_weights <- object$weights$unit
   time_weights <- object$weights$time
   if ( weights_print == 'non-null' ){
@@ -28,7 +27,7 @@ summary.multi_sdid = function(object, weights = F, weight.digits=3, weights_prin
   unit_weights <- unit_weights[id_sort,]
   unit_weights$weight <- round(unit_weights$weight, digits=weight.digits)
   time_weights$weight <- round(time_weights$weight, digits=weight.digits)
-  
+
   dimensions <- c( N-N0,
                    N0,
                    round(1 / sum(unit_weights$weight^2),  weight.digits),
@@ -44,16 +43,16 @@ summary.multi_sdid = function(object, weights = F, weight.digits=3, weights_prin
                               'No. Pre-treatment periods',
                               'Effective no. pre-treatment periods',
                               'No. Outcomes')
-  
+
   out <- list(estimate = class(object),
               tau = object$tau_all,
               dimensions = dimensions )
-  
+
   if ( weights ){
     out$controls = unit_weights
     out$periods  = time_weights
   }
-  
-  
+
+
   return( out )
 }

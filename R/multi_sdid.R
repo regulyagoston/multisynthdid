@@ -124,9 +124,9 @@ multi_sdid <- function( formula_yx, treatment, unit, time, data,
   colnames( tau_curves ) <- outcome
   tau_df <- as.data.frame( tau_curves )
   time_var <- colnames(setup0$W)
-  if ( is.double( data[[time]] ) ){
+  if ( inherits( data[[time]], 'double' ) ){
     time_var = as.double(time_var)
-  } else if ( is.Date( data[[time]] ) ){
+  } else if ( inherits( data[[time]], 'Date' ) ){
     time_var = as.Date(time_var)
   }
   tau_df$year <- time_var[(setup0$T0 + 1): length(time_var)]
