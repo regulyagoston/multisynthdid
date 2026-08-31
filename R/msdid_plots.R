@@ -130,7 +130,7 @@ plot_outcomes <- function( estimate, outcome = NULL ){
     tidyr::pivot_longer( any_of( outcome ), names_to = 'variable', values_to = 'value' ) %>%
     dplyr::mutate( type = factor(type) )
 
-  f <- ggplot( df_long, aes(x=x, y=value,colour=type,linetype=type)) +
+  f <- ggplot( df_long, aes(x=x, y=value,colour=type,group=type)) +
     geom_line( linewidth = 1.5 )+
     geom_vline(xintercept = tr_time, linetype = 'dashed' )+
     facet_wrap( ~variable, scales = 'free_y' ) +
